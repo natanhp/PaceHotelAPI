@@ -1,0 +1,12 @@
+RewriteEngine on
+RewriteCond $1 !^(index\.php|resources|robot\.txt)
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ index.php/$1 [L,QSA]
+<Limit GET HEAD POST PUT DELETE OPTIONS>
+# Deprecated apache 2.2 syntax:
+# Order Allow,Deny
+# Allow from all
+# Apache > 2.4 requires:
+Require all granted
+</Limit>
