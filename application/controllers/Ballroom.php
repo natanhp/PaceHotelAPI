@@ -72,9 +72,14 @@ class Ballroom extends RestController{
     }
 
     public function upload_post($invoice_number){
-        $response = $this->BallroomModel->upload($this->_uploadImage($invoice_number), $invoice_number);
+        if(AUTHORIZATION::validateToken(str_replace("Bearer ","",$this->input->get_request_header("Authorization")))){
+            $response = $this->BallroomModel->upload($this->_uploadImage($invoice_number), $invoice_number);
 
-        return $this->returnData($response['msg'], $response['error']);
+            return $this->returnData($response['msg'], $response['error']);
+        }else{
+            return $this->returnData(
+                $this->input->get_request_header('Authorization'), false);
+        }
     }
 
     public function index_delete($id = null){
