@@ -12,13 +12,10 @@ class StockModel extends CI_Model{
     }
     
 
-    public function update($request, $id){
-        $updateData = ['merk' => $request->merk,
-                         'name' => $request->name,
-                        'amount' => $request->amount,
-                        'created_at' => $request->created_at];
+    public function update($stock, $idStock){
+        $updateData = ['stock' => $stock];
 
-        if($this->db->where('id', $id)->update($this->table, $updateData)){
+        if($this->db->where('id', $idStock)->update($this->table, $updateData)){
             return ['msg' => 'Berhasil', 'error' => false];
         }
 
