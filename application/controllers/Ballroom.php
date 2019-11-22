@@ -53,7 +53,7 @@ class Ballroom extends RestController{
         $ballroom = new BallroomData();
         $ballroom->customer_id = $this->post('customer_id');
         $ballroom->ball_room_number = $room_number;
-        $ballroom->reservation_date = DateTime::createFromFormat("d/m/Y", $this->post('reservation_date'))->format("Y-m-d");
+        $ballroom->reservation_date = DateTime::createFromFormat("Y-m-d", $this->post('reservation_date'))->format("Y-m-d");
         $ballroom->price = $price;
         $ballroom->invoice_number = $invoice_number;
 

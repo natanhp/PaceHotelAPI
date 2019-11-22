@@ -46,7 +46,7 @@ class Restaurant extends RestController{
 
         $restaurant = new RestaurantData();
         $restaurant->customer_id = $this->post('customer_id');
-        $restaurant->reservation_date = DateTime::createFromFormat("d/m/Y", $this->post('reservation_date'))->format("Y-m-d");
+        $restaurant->reservation_date = DateTime::createFromFormat("Y-m-d", $this->post('reservation_date'))->format("Y-m-d");
         $restaurant->price = $price;
         $restaurant->invoice_number = $invoice_number;
 
