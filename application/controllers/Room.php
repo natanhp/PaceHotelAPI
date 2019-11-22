@@ -50,14 +50,14 @@ class Room extends RestController{
 
         $invoice_number = 'R'.uniqid().$room_number;
 
-        $days = date_diff(DateTime::createFromFormat("d/m/Y", $this->post('check_in')), DateTime::createFromFormat("d/m/Y", $this->post('check_out')))->format('%a')+1;
+        $days = date_diff(DateTime::createFromFormat("Y-m-d", $this->post('check_in')), DateTime::createFromFormat("Y-m-d", $this->post('check_out')))->format('%a')+1;
         $total_price = $price * $days;
 
         $room = new RoomData();
         $room->customer_id = $this->post('customer_id');
         $room->room_number = $room_number;
-        $room->check_in = DateTime::createFromFormat("d/m/Y", $this->post('check_in'))->format("Y-m-d");
-        $room->check_out = DateTime::createFromFormat("d/m/Y", $this->post('check_out'))->format("Y-m-d");
+        $room->check_in = DateTime::createFromFormat("Y-m-d", $this->post('check_in'))->format("Y-m-d");
+        $room->check_out = DateTime::createFromFormat("Y-m-d", $this->post('check_out'))->format("Y-m-d");
         $room->price = $total_price;
         $room->invoice_number = $invoice_number;
 
