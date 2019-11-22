@@ -17,7 +17,7 @@ class Ballroom extends RestController{
 
     public function index_get(){
         if(AUTHORIZATION::validateToken(str_replace("Bearer ","",$this->input->get_request_header("Authorization")))){
-            return $this->returnData($this->db->get('spareparts')->result(), false);
+            return $this->returnData($this->db->get('Ballroom')->result(), false);
         }else{
             return $this->returnData(
                 $this->input->get_request_header('Authorization'), false);
@@ -88,7 +88,7 @@ class Ballroom extends RestController{
             return $this->returnData('Parameter Id tidak Ditemukan', true);
         }
 
-        $response = $this->SparePartModel->destroy($id);
+        $response = $this->BallroomModel->destroy($id);
 
         return $this->returnData($response['msg'], $response['error']);
     }else{
