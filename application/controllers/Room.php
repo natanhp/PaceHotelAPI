@@ -34,7 +34,7 @@ class Room extends RestController{
             return $this->returnData($this->form_validation->error_array(), true);
         }
 
-        $price = 50000000;
+        $price = 500000;
 
         $room_number = 0;
         do{
@@ -50,19 +50,22 @@ class Room extends RestController{
 
         $invoice_number = 'R'.uniqid().$room_number;
 
+        $days = date_diff(DateTime::createFromFormat("d/m/Y", $this->post('check_in')), DateTime::createFromFormat("d/m/Y", $this->post('check_out')))->format('%a')+1;
+        $total_price = $price * $days;
+
         $room = new RoomData();
         $room->customer_id = $this->post('customer_id');
-        $room->ball_room_number = $room_number;
+        $room->room_number = $room_number;
         $room->check_in = DateTime::createFromFormat("d/m/Y", $this->post('check_in'))->format("Y-m-d");
         $room->check_out = DateTime::createFromFormat("d/m/Y", $this->post('check_out'))->format("Y-m-d");
-        $room->price = $price;
+        $room->price = $total_price;
         $room->invoice_number = $invoice_number;
 
         
         $response = $this->RoomModel->store($room);
         $this->StockModel->update($room_stock->stock-1, 1);
 
-        $this->sendMail($this->post('customer_email'), $price, $invoice_number);
+        $this->sendMail($this->post('customer_email'), $total_price, $invoice_number);
 
         return $this->returnData($response['msg'], $response['error']);
 
