@@ -26,7 +26,7 @@ class User extends RestController{
         $response = $this->UserModel->login($user);
        
 
-        return $this->response(['message' => $response['msg'], 'error' => $response['error'], 'token' => $response['token']]);
+        return $this->response(['message' => $response['msg'], 'error' => $response['error'], 'token' => $response['token'], 'id' => $response['id'], 'name' => $response['name'], 'email' => $response['email']]);
     }
 
     public function index_post($id = null){
