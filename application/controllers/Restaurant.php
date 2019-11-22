@@ -42,7 +42,7 @@ class Restaurant extends RestController{
             return $this->returnData("Sorry there are no available restaurant right now.", true);
         }
 
-        $invoice_number = 'R'.uniqid();
+        $invoice_number = 'REST'.uniqid();
 
         $restaurant = new RestaurantData();
         $restaurant->customer_id = $this->post('customer_id');
@@ -52,7 +52,7 @@ class Restaurant extends RestController{
 
         
         $response = $this->RestaurantModel->store($restaurant);
-        $this->StockModel->update($restaurant_stock->stock-1, 2);
+        $this->StockModel->update($restaurant_stock->stock-1, 3);
 
         $this->sendMail($this->post('customer_email'), $price, $invoice_number);
 
