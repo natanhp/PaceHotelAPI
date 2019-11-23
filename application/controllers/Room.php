@@ -124,7 +124,7 @@ class Room extends RestController{
         $ci->email->from('pacehotel@natanhp.id', 'Pace-Hotel');
         $ci->email->to($recipient);
         $ci->email->subject('Pace Hotel Payment Confirmation');
-        $ci->email->message("Please transfer $rupiah to 111111111 Bank Papua and upload the payment receupt to this link: http://localhost/~ned/backend/index.php/room/upload/$invoice_number");
+        $ci->email->message("Your invoice number is: $invoice_number \nPlease transfer $rupiah to 111111111 Bank Papua and upload the payment receupt to this link: http://localhost:8080/paymentconfirm");
         $this->email->send();
     }
 
