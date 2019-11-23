@@ -40,8 +40,8 @@ class BallroomModel extends CI_Model{
         return ['msg' => 'Gagal', 'error' => true];
     }
 
-    public function update($request, $id){
-        $updateData = ['paymen_status' => $request->paymen_status];
+    public function update($id){
+        $updateData = ['paymen_status' => '1'];
 
         if($this->db->where('id', $id)->update($this->table, $updateData)){
             return ['msg' => 'Berhasil', 'error' => false];
@@ -73,6 +73,10 @@ class BallroomModel extends CI_Model{
 
     public function checkRoomNumberUnique($number){
         return $this->db->select('*')->where(array('ball_room_number' => $number))->get($this->table)->row();
+    }
+
+    public function findImage($id){
+        return $this->db->select('image')->where(array('id' => $id))->get($this->table)->row();
     }
 }
 

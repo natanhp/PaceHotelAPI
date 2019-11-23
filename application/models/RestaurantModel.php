@@ -38,8 +38,8 @@ class RestaurantModel extends CI_Model{
         return ['msg' => 'Gagal', 'error' => true];
     }
 
-    public function update($request, $id){
-        $updateData = ['paymen_status' => $request->paymen_status];
+    public function update($id){
+        $updateData = ['paymen_status' => '1'];
 
         if($this->db->where('id', $id)->update($this->table, $updateData)){
             return ['msg' => 'Berhasil', 'error' => false];
@@ -67,6 +67,10 @@ class RestaurantModel extends CI_Model{
         }
 
         return ['msg' => 'Gagal', 'error' => true];
+    }
+
+    public function findImage($id){
+        return $this->db->select('image')->where(array('id' => $id))->get($this->table)->row();
     }
 }
 

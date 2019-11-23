@@ -82,13 +82,28 @@ class Ballroom extends RestController{
         }
     }
 
+    public function confirmpayment_post(){
+        if(AUTHORIZATION::validateToken(str_replace("Bearer ","",$this->input->get_request_header("Authorization")))){
+            $response = $this->BallroomModel->update($this->post('id'));
+
+            return $this->returnData($response['msg'], $response['error']);
+        }else{
+            return $this->returnData(
+                $this->input->get_request_header('Authorization'), false);
+        }
+    }
+
     public function index_delete($id = null){
         if(AUTHORIZATION::validateToken(str_replace("Bearer ","",$this->input->get_request_header("Authorization")))){
         if($id == null){
             return $this->returnData('Parameter Id tidak Ditemukan', true);
         }
 
+        $image = $this->BallroomModel->findImage($id);
+        unlink("./upload/".$image->image);
         $response = $this->BallroomModel->destroy($id);
+        $restaurant_stock = $this->StockModel->checkStock(2);
+        $this->StockModel->update($restaurant_stock->stock+1, 2);
 
         return $this->returnData($response['msg'], $response['error']);
     }else{
