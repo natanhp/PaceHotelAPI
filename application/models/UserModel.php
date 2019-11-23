@@ -62,7 +62,7 @@ class UserModel extends CI_Model{
     public function update($request, $id){
         $updateData = ['email' => $request->email, 'name' => $request->name];
         if($this->db->where('id', $id)->update($this->table, $updateData)){
-            return ['msg' => 'Berhasil', 'error' => false];
+            return ['msg' => 'Berhasil', 'error' => false, 'name' => $request->name, 'email' => $request->email];
         }
 
         return ['msg' => 'Gagal', 'error' => false];

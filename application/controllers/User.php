@@ -71,6 +71,8 @@ class User extends RestController{
             $response = $this->UserModel->store($user);
         }else{
             $response = $this->UserModel->update($user, $id);
+
+            return $this->response($response);
         }
 
         return $this->returnData($response['msg'], $response['error']);
